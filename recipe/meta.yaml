@@ -1,5 +1,4 @@
-{% set version = '1.3-0' %}
-
+{% set version = '1.3-1' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,21 +9,22 @@ package:
 source:
   fn: ICS_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/ICS_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/ICS/ICS_{{ version }}.tar.gz
-
-  sha256: e26cabfcd3307123bbeeab8b7b6ab9006ee2eb84e09f78194d029e532772b464
+    - {{ cran_mirror }}/src/contrib/ICS_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/ICS/ICS_{{ version }}.tar.gz
+  sha256: 9106f6bf89c57af44e89ea174150376e6dfba861cd78fcd0f26f45f637e46c74
 
 build:
+  merge_build_host: True  # [win]
   number: 0
   skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
+    - {{posix}}zip               # [win]
+  host:
     - r-base
     - r-mvtnorm
     - r-survey
@@ -35,23 +35,28 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('ICS')"  # [not win]
+    - $R -e "library('ICS')"           # [not win]
     - "\"%R%\" -e \"library('ICS')\""  # [win]
 
 about:
   home: https://CRAN.R-project.org/package=ICS
   license: GPL (>= 2)
-  summary: |
-    Implementation of a method of two different scatter matrices to obtain an invariant coordinate system or independent components, depending on the underlying assumptions. 
+  summary: 'Implementation of Tyler, Critchley, Duembgen and Oja''s (JRSS B, 2009, <doi:10.1111/j.1467-9868.2009.00706.x>)
+    and Oja, Sirkia and Eriksson''s (AJS, 2006, <http://www.ajs.or.at/index.php/ajs/article/view/vol35,%20no2%263%20-%207>)
+    method of two different scatter matrices to obtain an invariant coordinate system
+    or independent components, depending on the underlying assumptions. '
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}\/lib\/R\/share\/licenses\/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
   license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+
 extra:
-   recipe-maintainers:
+  recipe-maintainers:
     - MathiasHaudgaard
     - FrodePedersen
     - ArneKr
-    - Johanneskoester
-    - Bgruening
-    - Daler
-    - Jdblischak
+    - johanneskoester
+    - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
