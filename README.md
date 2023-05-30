@@ -1,11 +1,11 @@
-About r-ics
-===========
+About r-ics-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-ics-feedstock/blob/main/LICENSE.txt)
 
 Home: https://CRAN.R-project.org/package=ICS
 
 Package license: GPL-2.0-or-later
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-ics-feedstock/blob/main/LICENSE.txt)
 
 Summary: Implementation of Tyler, Critchley, Duembgen and Oja's (JRSS B, 2009, <doi:10.1111/j.1467-9868.2009.00706.x>) and Oja, Sirkia and Eriksson's (AJS, 2006, <http://www.ajs.or.at/index.php/ajs/article/view/vol35,%20no2%263%20-%207>) method of two different scatter matrices to obtain an invariant coordinate system or independent components, depending on the underlying assumptions. 
 
